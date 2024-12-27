@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Personagem {
+
+    private Long id;
     private String nome;
     private int idade;
     private String aldeia;
@@ -34,12 +36,13 @@ public class Personagem {
 
     @Override
     public String toString() {
-        return "Personagem{" +
-                "nome: '" + nome + '\'' +
-                ", idade: " + idade +
-                ", aldeia: '" + aldeia + '\'' +
-                ", jutsus: " + jutsus +
+        return "Personagem{" + " - " +
+                "id: "+ id + " - " +
+                "nome: '" + nome + " - " +
+                ", idade: " + idade + " - " +
+                ", aldeia: '" + aldeia + " - " +
+                ", jutsus: " + jutsus + " - " +
                 ", chakra: " + chakra +
-                '}';
+                "}";
     }
 }
