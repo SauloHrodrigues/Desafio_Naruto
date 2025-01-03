@@ -1,28 +1,29 @@
 package com.projetonaruto.model;
 
+import com.projetonaruto.enuns.CategoriaJutsuEnum;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Personagem {
 
-    private Long id;
+public class Personagem  {
+
     private String nome;
     private int idade;
     private String aldeia;
-    private List<String> jutsus = new ArrayList<>();
+    private List<CategoriaJutsuEnum> jutsuses = new ArrayList<>();
     private int chakra;
 
-    public Personagem(String nome, int idade, String aldeia, String jutsus, int chakra) {
+    public Personagem(String nome, int idade, String aldeia, CategoriaJutsuEnum jutsus, int chakra) {
         this.nome = nome;
         this.idade = idade;
         this.aldeia = aldeia;
-        this.jutsus.add(jutsus);
+        this.jutsuses.add(jutsus);
         this.chakra = chakra;
     }
 
-    public boolean adicionarJutsu(String jutsu){
+    public boolean adicionarJutsu(CategoriaJutsuEnum categoriaJutsuEnum){
         try {
-            jutsus.add(jutsu);
+            jutsuses.add(categoriaJutsuEnum);
         }catch (RuntimeException e){
             return false;
         }
@@ -37,11 +38,10 @@ public class Personagem {
     @Override
     public String toString() {
         return "Personagem{" + " - " +
-                "id: "+ id + " - " +
                 "nome: '" + nome + " - " +
                 ", idade: " + idade + " - " +
                 ", aldeia: '" + aldeia + " - " +
-                ", jutsus: " + jutsus + " - " +
+                ", jutsuses: " + jutsuses + " - " +
                 ", chakra: " + chakra +
                 "}";
     }
