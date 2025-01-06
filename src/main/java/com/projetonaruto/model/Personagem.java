@@ -3,46 +3,91 @@ package com.projetonaruto.model;
 import com.projetonaruto.enuns.CategoriaJutsuEnum;
 import java.util.ArrayList;
 import java.util.List;
-
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 public class Personagem  {
 
-    private String nome;
-    private int idade;
-    private String aldeia;
-    private List<CategoriaJutsuEnum> jutsuses = new ArrayList<>();
-    private int chakra;
+    private String Nome;
+    private int Idade;
+    private String Aldeia;
+    private List<String> Jutsuses = new ArrayList<>();
+    private int Chakra;
 
-    public Personagem(String nome, int idade, String aldeia, CategoriaJutsuEnum jutsus, int chakra) {
-        this.nome = nome;
-        this.idade = idade;
-        this.aldeia = aldeia;
-        this.jutsuses.add(jutsus);
-        this.chakra = chakra;
+    public Personagem() {
+    }
+    public Personagem(String nome, int idade, String aldeia, String jutsus, int chakra) {
+        this.Nome = nome;
+        this.Idade = idade;
+        this.Aldeia = aldeia;
+        this.Jutsuses.add(jutsus);
+        this.Chakra = chakra;
     }
 
-    public boolean adicionarJutsu(CategoriaJutsuEnum categoriaJutsuEnum){
-        try {
-            jutsuses.add(categoriaJutsuEnum);
-        }catch (RuntimeException e){
-            return false;
-        }
-        return true;
+    public void adicionarJutsu(String jutsu){
+            Jutsuses.add(jutsu);
     }
 
     public boolean aumentarChakra(int chakra){
-        this.chakra += chakra;
+        this.Chakra += chakra;
         return true;
     }
 
+
+    public String usarJutsu() {
+        return "O personagem "+ getNome() + " não é guerreiro.";
+    }
+
+
+    public String desviar() {
+        return "O personagem "+ getNome() + " não é guerreiro.";
+    }
     @Override
     public String toString() {
         return "Personagem{" + " - " +
-                "nome: '" + nome + " - " +
-                ", idade: " + idade + " - " +
-                ", aldeia: '" + aldeia + " - " +
-                ", jutsuses: " + jutsuses + " - " +
-                ", chakra: " + chakra +
+                "nome: '" + Nome + " - " +
+                ", idade: " + Idade + " - " +
+                ", aldeia: '" + Aldeia + " - " +
+                ", jutsuses: " + Jutsuses + " - " +
+                ", chakra: " + Chakra +
                 "}";
+    }
+
+    public String getNome() {
+        return Nome;
+    }
+
+    public void setNome(String nome) {
+        Nome = nome;
+    }
+
+    public int getIdade() {
+        return Idade;
+    }
+
+    public void setIdade(int idade) {
+        Idade = idade;
+    }
+
+    public String getAldeia() {
+        return Aldeia;
+    }
+
+    public void setAldeia(String aldeia) {
+        Aldeia = aldeia;
+    }
+
+    public List<String> getJutsuses() {
+        return Jutsuses;
+    }
+
+
+    public int getChakra() {
+        return Chakra;
+    }
+
+    public void setChakra(int chakra) {
+        Chakra = chakra;
     }
 }

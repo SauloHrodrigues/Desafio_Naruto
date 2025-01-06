@@ -2,10 +2,16 @@ package com.projetonaruto.model;
 
 import com.projetonaruto.enuns.CategoriaJutsuEnum;
 import com.projetonaruto.interfaces.Ninja;
+import lombok.Getter;
+import lombok.Setter;
 
-
+@Getter
+@Setter
 public class NinjaTaijutsu extends Personagem implements Ninja {
-    public NinjaTaijutsu(String nome, int idade, String aldeia, CategoriaJutsuEnum jutsus, int chakra) {
+    public NinjaTaijutsu() {
+        super();
+    }
+    public NinjaTaijutsu(String nome, int idade, String aldeia, String jutsus, int chakra) {
         super(nome, idade, aldeia, jutsus, chakra);
     }
 
