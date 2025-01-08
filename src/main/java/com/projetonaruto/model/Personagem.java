@@ -1,6 +1,7 @@
 package com.projetonaruto.model;
 
 import com.projetonaruto.enuns.CategoriaJutsuEnum;
+import com.projetonaruto.exceptions.PersonagemNaoGuerreiroExcepition;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
@@ -36,22 +37,22 @@ public class Personagem  {
 
 
     public String usarJutsu() {
-        return "O personagem "+ getNome() + " não é guerreiro.";
+        throw new PersonagemNaoGuerreiroExcepition("O personagem "+ getNome() + " não é guerreiro.");
     }
 
 
     public String desviar() {
-        return "O personagem "+ getNome() + " não é guerreiro.";
+        throw new PersonagemNaoGuerreiroExcepition("O personagem "+ getNome() + " não é guerreiro.");
+
     }
     @Override
     public String toString() {
-        return "Personagem{" + " - " +
-                "nome: '" + Nome + " - " +
-                ", idade: " + Idade + " - " +
-                ", aldeia: '" + Aldeia + " - " +
-                ", jutsuses: " + Jutsuses + " - " +
-                ", chakra: " + Chakra +
-                "}";
+        return "Personagem " + "\n" +
+                "nome: " + Nome + "\n" +
+                "idade: " + Idade + "\n" +
+                "aldeia: " + Aldeia + "\n" +
+                "jutsuses: " + Jutsuses + "\n" +
+                "chakra: " + Chakra + "\n";
     }
 
     public String getNome() {

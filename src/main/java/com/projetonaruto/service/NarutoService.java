@@ -1,13 +1,14 @@
 package com.projetonaruto.service;
 
 import com.projetonaruto.dto.NovoPersonagemDto;
+import com.projetonaruto.exceptions.JutsuInexistenteExcepition;
+import com.projetonaruto.exceptions.PersonagemNaoCadastradoExcepition;
 import com.projetonaruto.model.NinjaGenjutsu;
 import com.projetonaruto.model.NinjaNinjutsu;
 import com.projetonaruto.model.Personagem;
 import com.projetonaruto.model.NinjaTaijutsu;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class NarutoService implements SenviceInterface{
     @Override
     public Personagem novoPersonagem(NovoPersonagemDto personagemDto) {
 
-        if(personagemDto.categoriaJutsu() == null){
+        if(personagemDto.categoriaJutsu() == null || personagemDto.categoriaJutsu() == ""){
             Personagem personagem = new Personagem();
             return criarPesonagem(personagem, personagemDto);
         }
@@ -43,7 +44,8 @@ public class NarutoService implements SenviceInterface{
             return criarPesonagem(personagem, personagemDto);
         }
 
-        return null;
+       throw new JutsuInexistenteExcepition("A categoria de jutsu '" + personagemDto.categoriaJutsu()
+       + "', não existe. ");
     }
 
     @Override
@@ -66,12 +68,12 @@ public class NarutoService implements SenviceInterface{
     }
 
     private  Personagem pesquisarPersonagem(String nome){
-        Personagem personagemBuscado = personagensMap.get(nome);
+        Personagem personagemBuscado = personagensMap.get(nome.toUpperCase());
 
         if (personagemBuscado != null) {
             return personagemBuscado;
         } else {
-            throw new NoSuchElementException("O Personagem "+ nome + " não está cadastrado.");
+            throw new PersonagemNaoCadastradoExcepition("O Personagem "+ nome + " não está cadastrado.");
         }
     }
 
@@ -84,7 +86,8 @@ public class NarutoService implements SenviceInterface{
             personagem.setIdade(personagemDto.idade());
             personagem.setAldeia(personagemDto.aldeia());
             personagem.setChakra(personagemDto.chakra());
-            personagensMap.put(personagem.getNome(), personagem);
+
+            personagensMap.put(personagem.getNome().toUpperCase(), personagem);
         }
         return personagem;
     }
