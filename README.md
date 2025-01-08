@@ -37,12 +37,12 @@ Classes:
     • desviar(): exibe uma mensagem na tela indicando que o personagem está desviando de um ataque usando sua habilidade em Genjutsu
 
     ## Tecnologias Utilizadas
+    
     • Java 17
     • SpringBoot
     • Maven
 
     ## Autor
-    
     Nome: Saulo Henrique Rodrigues
     LinkDin: https://www.linkedin.com/in/saulohenriquerodrigues/
     
