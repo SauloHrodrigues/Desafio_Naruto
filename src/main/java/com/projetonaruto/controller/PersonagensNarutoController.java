@@ -34,11 +34,11 @@ public class PersonagensNarutoController {
     public ResponseEntity<Map<String, Personagem>> buscar() {
         return ResponseEntity.status(HttpStatus.OK).body((Map<String, Personagem>) service.buscar());
     }
-    @GetMapping("/usarjutsu/{nome}")
+    @GetMapping("/{nome}/usarjutsu")
     public ResponseEntity<String> usarJutsu(@PathVariable String nome) {
         return ResponseEntity.status(HttpStatus.OK).body(service.usarJutsu(nome));
     }
-    @GetMapping("/desviar/{nome}")
+    @GetMapping("/{nome}/desviar")
     public ResponseEntity<String> desviar(@PathVariable String nome) {
         return ResponseEntity.status(HttpStatus.OK).body(service.desviar(nome));
     }
