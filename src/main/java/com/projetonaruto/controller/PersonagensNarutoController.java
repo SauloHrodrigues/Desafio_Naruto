@@ -2,7 +2,7 @@ package com.projetonaruto.controller;
 
 import com.projetonaruto.dto.NovoPersonagemDto;
 import com.projetonaruto.model.Personagem;
-import com.projetonaruto.service.SenviceInterface;
+import com.projetonaruto.service.PersonagemServiceInterface;
 import java.util.Map;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PersonagensNarutoController {
 
     @Autowired
-    private SenviceInterface service;
+    private PersonagemServiceInterface service;
 
     @PostMapping
     public ResponseEntity<Personagem> cadastrar(@RequestBody NovoPersonagemDto novoPersonagem){

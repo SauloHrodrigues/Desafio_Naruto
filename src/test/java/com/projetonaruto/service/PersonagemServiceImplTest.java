@@ -5,6 +5,7 @@ import com.projetonaruto.exceptions.JutsuInexistenteExcepition;
 import com.projetonaruto.fixture.DtoFixture;
 import com.projetonaruto.model.NinjaTaijutsu;
 import com.projetonaruto.model.Personagem;
+import com.projetonaruto.service.impl.PersonagemPersonagemServiceImpl;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,10 +16,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
-class NarutoServiceTest {
+class PersonagemServiceImplTest {
 
     @InjectMocks
-    private NarutoService service;
+    private PersonagemPersonagemServiceImpl service;
     private NovoPersonagemDto personagem01Dto;
     private NovoPersonagemDto personagemTaijutsuDto;
     private NovoPersonagemDto personagemGenjutsuDto;

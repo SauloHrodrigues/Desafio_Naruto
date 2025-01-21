@@ -1,4 +1,4 @@
-package com.projetonaruto.service;
+package com.projetonaruto.service.impl;
 
 import com.projetonaruto.dto.NovoPersonagemDto;
 import com.projetonaruto.exceptions.JutsuInexistenteExcepition;
@@ -7,6 +7,7 @@ import com.projetonaruto.model.NinjaGenjutsu;
 import com.projetonaruto.model.NinjaNinjutsu;
 import com.projetonaruto.model.Personagem;
 import com.projetonaruto.model.NinjaTaijutsu;
+import com.projetonaruto.service.PersonagemServiceInterface;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.AllArgsConstructor;
@@ -14,9 +15,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class NarutoService implements SenviceInterface{
+public class PersonagemPersonagemServiceImpl implements PersonagemServiceInterface {
 
-//    private List<Personagem> personagens = new ArrayList<>();
     Map<String, Personagem> personagensMap = new HashMap<>();
     @Override
     public Personagem novoPersonagem(NovoPersonagemDto personagemDto) {

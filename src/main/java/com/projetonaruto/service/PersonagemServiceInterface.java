@@ -4,7 +4,7 @@ import com.projetonaruto.dto.NovoPersonagemDto;
 import com.projetonaruto.model.Personagem;
 import java.util.Map;
 
-public interface SenviceInterface {
+public interface PersonagemServiceInterface {
 
     public Personagem novoPersonagem(NovoPersonagemDto novoPersonagem);
 
