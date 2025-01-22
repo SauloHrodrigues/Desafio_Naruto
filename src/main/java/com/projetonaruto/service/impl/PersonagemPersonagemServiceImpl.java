@@ -2,6 +2,7 @@ package com.projetonaruto.service.impl;
 
 import com.projetonaruto.dto.NovoPersonagemDto;
 import com.projetonaruto.exceptions.JutsuInexistenteExcepition;
+import com.projetonaruto.exceptions.PersonagemJaExistenteExcepition;
 import com.projetonaruto.exceptions.PersonagemNaoCadastradoExcepition;
 import com.projetonaruto.model.NinjaGenjutsu;
 import com.projetonaruto.model.NinjaNinjutsu;
@@ -19,33 +20,20 @@ public class PersonagemPersonagemServiceImpl implements PersonagemServiceInterfa
 
     Map<String, Personagem> personagensMap = new HashMap<>();
     @Override
-    public Personagem novoPersonagem(NovoPersonagemDto personagemDto) {
+    public Personagem novoPersonagem(NovoPersonagemDto dto) {
+        if(personagemExiste(dto.nome())){
+            throw new PersonagemJaExistenteExcepition("Personagem já cadastrado.");
 
-        if(personagemDto.categoriaJutsu() == null || personagemDto.categoriaJutsu() == ""){
-            Personagem personagem = new Personagem();
-            return criarPesonagem(personagem, personagemDto);
+        }else {
+            Personagem novoPersonagem = criarPersonagem(dto.categoriaJutsu());
+            novoPersonagem.setNome(dto.nome());
+            novoPersonagem.setIdade(dto.idade());
+            novoPersonagem.setAldeia(dto.aldeia());
+            novoPersonagem.setChakra(dto.chakra());
+
+            personagensMap.put(novoPersonagem.getNome().toUpperCase(),novoPersonagem);
+            return novoPersonagem;
         }
-
-        if(personagemDto.categoriaJutsu().equalsIgnoreCase("nijaTaijutsu")){
-            Personagem personagem = new NinjaTaijutsu();
-            personagem.adicionarJutsu("TAIJUTSU");
-            return criarPesonagem(personagem, personagemDto);
-        }
-
-        if(personagemDto.categoriaJutsu().equalsIgnoreCase("NinjaGenjutsu")){
-            Personagem personagem = new NinjaGenjutsu();
-            personagem.adicionarJutsu("GENJUTSU");
-            return criarPesonagem(personagem, personagemDto);
-        }
-
-        if(personagemDto.categoriaJutsu().equalsIgnoreCase("NinjaNinjutsu")){
-            Personagem personagem = new NinjaNinjutsu();
-            personagem.adicionarJutsu("NINJUTSU");
-            return criarPesonagem(personagem, personagemDto);
-        }
-
-       throw new JutsuInexistenteExcepition("A categoria de jutsu '" + personagemDto.categoriaJutsu()
-       + "', não existe. ");
     }
 
     @Override
@@ -77,18 +65,38 @@ public class PersonagemPersonagemServiceImpl implements PersonagemServiceInterfa
         }
     }
 
-    private Personagem criarPesonagem(Personagem personagem, NovoPersonagemDto personagemDto){
-
-        if (personagensMap.containsKey(personagem.getNome())) {
-            System.out.println("Personagem com o nome '" + personagem.getNome() + "' já existe e não será adicionado.");
-        } else {
-            personagem.setNome(personagemDto.nome());
-            personagem.setIdade(personagemDto.idade());
-            personagem.setAldeia(personagemDto.aldeia());
-            personagem.setChakra(personagemDto.chakra());
-
-            personagensMap.put(personagem.getNome().toUpperCase(), personagem);
+    private boolean personagemExiste(String nome){
+        if (personagensMap.containsKey(nome.toUpperCase())){
+                return true;
         }
-        return personagem;
+        return false;
     }
+
+    private Personagem criarPersonagem(String categoria){
+        if(categoria == null || categoria == ""){
+            return new Personagem();
+        }
+
+        if(categoria.equalsIgnoreCase("ninjaTaijutsu")){
+            Personagem personagem= new NinjaTaijutsu();
+            personagem.adicionarJutsu(categoria.toUpperCase());
+            return personagem;
+        }
+
+        if(categoria.equalsIgnoreCase("NinjaGenjutsu")){
+            Personagem personagem = new NinjaGenjutsu();
+            personagem.adicionarJutsu(categoria.toUpperCase());
+            return personagem;
+        }
+
+        if(categoria.equalsIgnoreCase("NinjaNinjutsu")){
+            Personagem personagem = new NinjaNinjutsu();
+            personagem.adicionarJutsu(categoria.toUpperCase());
+            return personagem;
+        }
+
+        throw new JutsuInexistenteExcepition("A categoria de Jutsu '" + categoria
+       + "', não existe. ");
+    }
+
 }

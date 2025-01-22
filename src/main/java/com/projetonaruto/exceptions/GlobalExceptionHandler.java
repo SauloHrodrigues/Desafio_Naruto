@@ -26,6 +26,12 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.NOT_FOUND) // ou outro status HTTP adequado
                 .body(new ErrorResponse("Erro", ex.getMessage()));
     }
+    @ExceptionHandler(PersonagemJaExistenteExcepition.class)
+    public ResponseEntity<Object> handlePersonagemJaExistenteExcepition(PersonagemJaExistenteExcepition ex) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND) // ou outro status HTTP adequado
+                .body(new ErrorResponse("Erro", ex.getMessage()));
+    }
 
     // Classe para representar a resposta do erro
     static class ErrorResponse {
