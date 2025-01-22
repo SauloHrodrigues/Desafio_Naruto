@@ -1,16 +1,18 @@
 package com.projetonaruto.enuns;
 
 public enum CategoriaJutsuEnum {
-    NINJUTSU,
-    GENJUTSU,
-    TAIJUTSU,
+    NINJANINJUTSU,
+    NINJAGENJUTSU,
+    NINJATAIJUTSU,
     ;
 
-    public static CategoriaJutsuEnum fromString(String value) {
-        try {
-            return CategoriaJutsuEnum.valueOf(value.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            throw new RuntimeException("Jutsu inválido: " + value);
+    public static boolean contains(String palavra){
+        for(CategoriaJutsuEnum e : CategoriaJutsuEnum.values()){
+            if(e.name().equalsIgnoreCase(palavra)){
+                return true;
+            }
         }
+        return false;
     }
+
 }

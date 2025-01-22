@@ -1,6 +1,8 @@
 package com.projetonaruto.service.impl;
 
+import com.projetonaruto.dto.NovoJutsuDto;
 import com.projetonaruto.dto.NovoPersonagemDto;
+import com.projetonaruto.enuns.CategoriaJutsuEnum;
 import com.projetonaruto.exceptions.JutsuInexistenteExcepition;
 import com.projetonaruto.exceptions.PersonagemJaExistenteExcepition;
 import com.projetonaruto.exceptions.PersonagemNaoCadastradoExcepition;
@@ -53,6 +55,20 @@ public class PersonagemPersonagemServiceImpl implements PersonagemServiceInterfa
         Personagem personagem = pesquisarPersonagem(nomeDoPersonagem);
         return("O personagem encontrado foi: " + personagem +
                 "e "+ personagem.desviar());
+    }
+
+    @Override
+    public Personagem adicionarJutsu(String nome, NovoJutsuDto dto){
+        Personagem personagem = pesquisarPersonagem(nome);
+
+        if(CategoriaJutsuEnum.contains(dto.novoJutsu())){
+            personagem.adicionarJutsu(dto.novoJutsu());
+        } else {
+            throw new JutsuInexistenteExcepition("O jutsu "+dto.novoJutsu()+
+                    " não consta no sistema.");
+        }
+
+        return personagem;
     }
 
     private  Personagem pesquisarPersonagem(String nome){
