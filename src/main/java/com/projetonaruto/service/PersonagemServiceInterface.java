@@ -1,5 +1,6 @@
 package com.projetonaruto.service;
 
+import com.projetonaruto.dto.AumentarChakraDto;
 import com.projetonaruto.dto.NovoJutsuDto;
 import com.projetonaruto.dto.NovoPersonagemDto;
 import com.projetonaruto.model.Personagem;
@@ -16,4 +17,6 @@ public interface PersonagemServiceInterface {
     public String desviar(String nomeDoPersonagem);
 
     public Personagem adicionarJutsu(String nome, NovoJutsuDto dto);
+
+    public Personagem aumentarChakra(String nome, AumentarChakraDto dto);
 }

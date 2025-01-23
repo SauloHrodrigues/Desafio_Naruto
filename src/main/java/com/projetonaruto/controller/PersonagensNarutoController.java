@@ -1,5 +1,6 @@
 package com.projetonaruto.controller;
 
+import com.projetonaruto.dto.AumentarChakraDto;
 import com.projetonaruto.dto.NovoJutsuDto;
 import com.projetonaruto.dto.NovoPersonagemDto;
 import com.projetonaruto.model.Personagem;
@@ -48,6 +49,10 @@ public class PersonagensNarutoController {
     @PatchMapping("/{nome}/novojutsu")
     public ResponseEntity<Personagem> dicionarJutsu(@PathVariable String nome, @RequestBody NovoJutsuDto dto) {
         return ResponseEntity.status(HttpStatus.OK).body(service.adicionarJutsu(nome, dto));
+    }
+    @PatchMapping("/{nome}/aumentarchakra")
+    public ResponseEntity<Personagem> aumentarChackra(@PathVariable String nome, @RequestBody AumentarChakraDto dto) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.aumentarChakra(nome, dto));
     }
 
 }

@@ -1,5 +1,6 @@
 package com.projetonaruto.service.impl;
 
+import com.projetonaruto.dto.AumentarChakraDto;
 import com.projetonaruto.dto.NovoJutsuDto;
 import com.projetonaruto.dto.NovoPersonagemDto;
 import com.projetonaruto.enuns.CategoriaJutsuEnum;
@@ -68,6 +69,13 @@ public class PersonagemPersonagemServiceImpl implements PersonagemServiceInterfa
                     " não consta no sistema.");
         }
 
+        return personagem;
+    }
+
+    @Override
+    public Personagem aumentarChakra(String nome, AumentarChakraDto dto){
+        Personagem personagem = pesquisarPersonagem(nome);
+        personagem.aumentarChakra(dto.quantidadeDeChakra());
         return personagem;
     }
 
