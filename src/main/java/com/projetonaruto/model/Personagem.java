@@ -1,94 +1,68 @@
 package com.projetonaruto.model;
 
-import com.projetonaruto.enuns.CategoriaJutsuEnum;
-import com.projetonaruto.exceptions.PersonagemNaoGuerreiroExcepition;
-import java.util.ArrayList;
-import java.util.List;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Personagem  {
 
-    private String Nome;
-    private int Idade;
-    private String Aldeia;
-    private List<String> Jutsuses = new ArrayList<>();
-    private int Chakra;
+    private String nome;
+    private int idade;
+    private String aldeia;
+    protected Map<String, Jutsu> jutsus;
+    protected int chakra;
+    private boolean ninja = false;
 
-    public Personagem() {
-    }
-    public Personagem(String nome, int idade, String aldeia, String jutsus, int chakra) {
-        this.Nome = nome;
-        this.Idade = idade;
-        this.Aldeia = aldeia;
-        this.Jutsuses.add(jutsus);
-        this.Chakra = chakra;
+    public Personagem(String nome, int idade, String aldeia) {
+        this.nome = nome;
+        this.idade = idade;
+        this.aldeia = aldeia;
     }
 
-    public void adicionarJutsu(String jutsu){
-            Jutsuses.add(jutsu);
-    }
-
-    public boolean aumentarChakra(int chakra){
-        this.Chakra += chakra;
-        return true;
-    }
-
-
-    public String usarJutsu() {
-        throw new PersonagemNaoGuerreiroExcepition("O personagem "+ getNome() + " não é guerreiro.");
-    }
-
-
-    public String desviar() {
-        throw new PersonagemNaoGuerreiroExcepition("O personagem "+ getNome() + " não é guerreiro.");
-
-    }
-    @Override
-    public String toString() {
-        return "Personagem " + "\n" +
-                "nome: " + Nome + "\n" +
-                "idade: " + Idade + "\n" +
-                "aldeia: " + Aldeia + "\n" +
-                "jutsuses: " + Jutsuses + "\n" +
-                "chakra: " + Chakra + "\n";
+    public Personagem(String nomeNinja, int idade, String aldeia, boolean ninja) {
+        this.nome = nomeNinja;
+        this.idade = idade;
+        this.aldeia = aldeia;
+        this.jutsus = new HashMap<>();
+        this.chakra = 100;
+        this.ninja = ninja;
     }
 
     public String getNome() {
-        return Nome;
-    }
-
-    public void setNome(String nome) {
-        Nome = nome;
+        return nome;
     }
 
     public int getIdade() {
-        return Idade;
-    }
-
-    public void setIdade(int idade) {
-        Idade = idade;
+        return idade;
     }
 
     public String getAldeia() {
-        return Aldeia;
+        return aldeia;
+    }
+
+    public boolean isNinja() {
+        return ninja;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setIdade(int idade) {
+        this.idade = idade;
     }
 
     public void setAldeia(String aldeia) {
-        Aldeia = aldeia;
+        this.aldeia = aldeia;
     }
 
-    public List<String> getJutsuses() {
-        return Jutsuses;
-    }
-
-
-    public int getChakra() {
-        return Chakra;
-    }
-
-    public void setChakra(int chakra) {
-        Chakra = chakra;
+    @Override
+    public String toString() {
+        return "Personagem{" +
+                "nome= " + nome +
+                ", idade= " + idade +
+                ", aldeia= " + aldeia +
+                " chakra= " + chakra +
+                ", jutsus=" + jutsus +
+        '}';
     }
 }
