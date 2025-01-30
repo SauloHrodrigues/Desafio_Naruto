@@ -1,5 +1,6 @@
 package com.projetonaruto.model;
 
+import com.projetonaruto.enuns.CategoriaNijaEnum;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,7 +11,7 @@ public class Personagem  {
     private String aldeia;
     protected Map<String, Jutsu> jutsus;
     protected int chakra;
-    private boolean ninja = false;
+    private CategoriaNijaEnum ninja;
 
     public Personagem(String nome, int idade, String aldeia) {
         this.nome = nome;
@@ -18,7 +19,7 @@ public class Personagem  {
         this.aldeia = aldeia;
     }
 
-    public Personagem(String nomeNinja, int idade, String aldeia, boolean ninja) {
+    public Personagem(String nomeNinja, int idade, String aldeia, CategoriaNijaEnum ninja) {
         this.nome = nomeNinja;
         this.idade = idade;
         this.aldeia = aldeia;
@@ -39,9 +40,6 @@ public class Personagem  {
         return aldeia;
     }
 
-    public boolean isNinja() {
-        return ninja;
-    }
 
     public void setNome(String nome) {
         this.nome = nome;

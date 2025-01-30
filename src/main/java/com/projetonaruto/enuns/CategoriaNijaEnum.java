@@ -1,13 +1,13 @@
 package com.projetonaruto.enuns;
 
-public enum CategoriaJutsuEnum {
+public enum CategoriaNijaEnum {
     NINJANINJUTSU,
     NINJAGENJUTSU,
     NINJATAIJUTSU,
     ;
 
     public static boolean contains(String palavra){
-        for(CategoriaJutsuEnum e : CategoriaJutsuEnum.values()){
+        for(CategoriaNijaEnum e : CategoriaNijaEnum.values()){
             if(e.name().equalsIgnoreCase(palavra)){
                 return true;
             }
