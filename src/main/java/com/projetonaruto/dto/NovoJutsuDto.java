@@ -1,6 +1,8 @@
 package com.projetonaruto.dto;
 
 public record NovoJutsuDto(
-        String novoJutsu
+        String nome,
+        int dano
+
 ) {
 }

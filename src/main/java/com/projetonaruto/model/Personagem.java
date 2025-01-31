@@ -13,6 +13,10 @@ public class Personagem  {
     protected int chakra;
     private CategoriaNijaEnum ninja;
 
+    public Personagem(){
+
+    }
+
     public Personagem(String nome, int idade, String aldeia) {
         this.nome = nome;
         this.idade = idade;
@@ -51,6 +55,14 @@ public class Personagem  {
 
     public void setAldeia(String aldeia) {
         this.aldeia = aldeia;
+    }
+
+    public CategoriaNijaEnum getNinja() {
+        return ninja;
+    }
+
+    protected void adicionarJutso(Jutsu jutsu){
+        jutsus.put(jutsu.getNome(), jutsu);
     }
 
     @Override

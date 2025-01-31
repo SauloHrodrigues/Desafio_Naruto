@@ -1,7 +1,7 @@
 package com.projetonaruto.service;
 
 import com.projetonaruto.dto.NovoPersonagemDto;
-import com.projetonaruto.exceptions.JutsuInexistenteExcepition;
+import com.projetonaruto.exceptions.JutsuInvalidoException;
 import com.projetonaruto.fixture.DtoFixture;
 import com.projetonaruto.model.NinjaTaijutsu;
 import com.projetonaruto.model.Personagem;
@@ -92,7 +92,7 @@ class PersonagemServiceImplTest {
     void novoPersonagemComCategoriaInexistente() {
         NovoPersonagemDto dto = DtoFixture.personagemComCategoriaErradaDto();
 
-        JutsuInexistenteExcepition exception = assertThrows(JutsuInexistenteExcepition.class, () -> {
+        JutsuInvalidoException exception = assertThrows(JutsuInvalidoException.class, () -> {
             service.novoPersonagem(dto);
         });
 

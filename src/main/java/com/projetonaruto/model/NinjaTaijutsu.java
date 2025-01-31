@@ -1,6 +1,6 @@
 package com.projetonaruto.model;
 
-import com.projetonaruto.enuns.CategoriaJutsuEnum;
+import com.projetonaruto.enuns.CategoriaNijaEnum;
 import com.projetonaruto.interfaces.Ninja;
 import java.util.Map;
 import lombok.Getter;
@@ -10,7 +10,10 @@ import lombok.Setter;
 @Setter
 public class NinjaTaijutsu extends Personagem implements Ninja {
 
-    public NinjaTaijutsu(String nomeNinja, int idade, String aldeia, boolean ninja) {
+    public NinjaTaijutsu(){
+
+    }
+    public NinjaTaijutsu(String nomeNinja, int idade, String aldeia, CategoriaNijaEnum ninja) {
         super(nomeNinja, idade, aldeia, ninja);
     }
 
@@ -22,6 +25,11 @@ public class NinjaTaijutsu extends Personagem implements Ninja {
     @Override
     public String desviar() {
         return "O personagem está desviando de um ataque usando sua habilidade em NinjaTaijutsu.";
+    }
+
+    @Override
+    public void adicionarJutsu(Jutsu jutsu) {
+        adicionarJutso(jutsu);
     }
 
     public Map<String, Jutsu> getMapJutsus() {
@@ -39,10 +47,6 @@ public class NinjaTaijutsu extends Personagem implements Ninja {
 
     public Map<String, Jutsu> getJutsus() {
         return jutsus;
-    }
-
-    public void setJutsus(Map<String, Jutsu> jutsus) {
-        this.jutsus = jutsus;
     }
 
     public int getChakra() {

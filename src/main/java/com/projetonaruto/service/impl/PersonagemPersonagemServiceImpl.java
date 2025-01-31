@@ -3,14 +3,16 @@ package com.projetonaruto.service.impl;
 import com.projetonaruto.dto.AumentarChakraDto;
 import com.projetonaruto.dto.NovoJutsuDto;
 import com.projetonaruto.dto.NovoPersonagemDto;
-import com.projetonaruto.enuns.CategoriaJutsuEnum;
-import com.projetonaruto.exceptions.JutsuInexistenteExcepition;
-import com.projetonaruto.exceptions.PersonagemJaExistenteExcepition;
+import com.projetonaruto.enuns.CategoriaNijaEnum;
+import com.projetonaruto.exceptions.JutsuInvalidoException;
+import com.projetonaruto.exceptions.PersonagemJaCadastradoException;
 import com.projetonaruto.exceptions.PersonagemNaoCadastradoExcepition;
+import com.projetonaruto.exceptions.PersonagemNaoGuerreiroException;
+import com.projetonaruto.model.Jutsu;
 import com.projetonaruto.model.NinjaGenjutsu;
 import com.projetonaruto.model.NinjaNinjutsu;
-import com.projetonaruto.model.Personagem;
 import com.projetonaruto.model.NinjaTaijutsu;
+import com.projetonaruto.model.Personagem;
 import com.projetonaruto.service.PersonagemServiceInterface;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,21 +23,41 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class PersonagemPersonagemServiceImpl implements PersonagemServiceInterface {
 
-    Map<String, Personagem> personagensMap = new HashMap<>();
+    private Map<String, Personagem> personagensMap = new HashMap<>();
+    private Map<String, String> mapeamento = new HashMap<>();
+
     @Override
     public Personagem novoPersonagem(NovoPersonagemDto dto) {
-        if(personagemExiste(dto.nome())){
-            throw new PersonagemJaExistenteExcepition("Personagem já cadastrado.");
 
-        }else {
-            Personagem novoPersonagem = criarPersonagem(dto.categoriaJutsu());
-            novoPersonagem.setNome(dto.nome());
-            novoPersonagem.setIdade(dto.idade());
-            novoPersonagem.setAldeia(dto.aldeia());
-            novoPersonagem.setChakra(dto.chakra());
+        validaDto(dto);
 
-            personagensMap.put(novoPersonagem.getNome().toUpperCase(),novoPersonagem);
-            return novoPersonagem;
+        switch (dto.categoriaNinja().toUpperCase()) {
+            case "NINJATAIJUTSU":
+
+                NinjaTaijutsu taijutsu = new NinjaTaijutsu(dto.nome(), dto.idade(), dto.aldeia(),
+                        CategoriaNijaEnum.NINJATAIJUTSU);
+                personagensMap.put(taijutsu.getNome().toUpperCase(), taijutsu);
+                mapeamento.put(taijutsu.getNome(), "NINJATAIJUTSU");
+                return taijutsu;
+
+            case "NINJANINJUTSU":
+                NinjaNinjutsu ninjutsu = new NinjaNinjutsu(
+                        dto.nome(), dto.idade(), dto.aldeia(), CategoriaNijaEnum.NINJANINJUTSU);
+                personagensMap.put(ninjutsu.getNome().toUpperCase(), ninjutsu);
+                mapeamento.put(ninjutsu.getNome(), "NINJANINJUTSU");
+                return ninjutsu;
+
+            case "NINJAGENJUTSU":
+                NinjaGenjutsu genjutsu = new NinjaGenjutsu(
+                        dto.nome(), dto.idade(), dto.aldeia(), CategoriaNijaEnum.NINJAGENJUTSU);
+                personagensMap.put(genjutsu.getNome().toUpperCase(), genjutsu);
+                mapeamento.put(genjutsu.getNome(), "NINJAGENJUTSU");
+                return genjutsu;
+
+            default:
+                Personagem personagem = new Personagem(dto.nome(), dto.idade(), dto.aldeia());
+                personagensMap.put(personagem.getNome().toUpperCase(), personagem);
+                return personagem;
         }
     }
 
@@ -45,82 +67,146 @@ public class PersonagemPersonagemServiceImpl implements PersonagemServiceInterfa
     }
 
     @Override
-    public String usarJutsu(String nomeDoPersonagem){
+    public String usarJutsu(String nomeDoPersonagem) {
         Personagem personagem = pesquisarPersonagem(nomeDoPersonagem);
-            return("O personagem encontrado foi: " + personagem +
-                    "e "+ personagem.usarJutsu());
-    }
+        String mensagem = "O personagem não é ninja. Não tem jutsu.";
 
-    @Override
-    public String desviar(String nomeDoPersonagem){
-        Personagem personagem = pesquisarPersonagem(nomeDoPersonagem);
-        return("O personagem encontrado foi: " + personagem +
-                "e "+ personagem.desviar());
-    }
-
-    @Override
-    public Personagem adicionarJutsu(String nome, NovoJutsuDto dto){
-        Personagem personagem = pesquisarPersonagem(nome);
-
-        if(CategoriaJutsuEnum.contains(dto.novoJutsu())){
-            personagem.adicionarJutsu(dto.novoJutsu());
-        } else {
-            throw new JutsuInexistenteExcepition("O jutsu "+dto.novoJutsu()+
-                    " não consta no sistema.");
+        if (personagem instanceof NinjaTaijutsu) {
+            NinjaTaijutsu ninjutsu = (NinjaTaijutsu) personagem;
+            mensagem = ninjutsu.usarJutsu();
         }
 
-        return personagem;
+        if (personagem instanceof NinjaNinjutsu) {
+            NinjaNinjutsu ninjutsu = (NinjaNinjutsu) personagem;
+            mensagem = ninjutsu.usarJutsu();
+        }
+
+        if (personagem instanceof NinjaGenjutsu) {
+            NinjaGenjutsu ninjaGenjutsu = (NinjaGenjutsu) personagem;
+            mensagem = ninjaGenjutsu.usarJutsu();
+        }
+        return mensagem;
     }
 
     @Override
-    public Personagem aumentarChakra(String nome, AumentarChakraDto dto){
-        Personagem personagem = pesquisarPersonagem(nome);
-        personagem.aumentarChakra(dto.quantidadeDeChakra());
-        return personagem;
+    public String desviar(String nomeDoPersonagem) {
+        Personagem personagem = pesquisarPersonagem(nomeDoPersonagem);
+        String mensagem = "O personagem não é ninja.";
+
+        if (personagem instanceof NinjaTaijutsu) {
+            NinjaTaijutsu ninjutsu = (NinjaTaijutsu) personagem;
+            mensagem = ninjutsu.desviar();
+        }
+
+        if (personagem instanceof NinjaNinjutsu) {
+            NinjaNinjutsu ninjutsu = (NinjaNinjutsu) personagem;
+            mensagem = ninjutsu.desviar();
+        }
+
+        if (personagem instanceof NinjaGenjutsu) {
+            NinjaGenjutsu ninjaGenjutsu = (NinjaGenjutsu) personagem;
+            mensagem = ninjaGenjutsu.desviar();
+        }
+        return mensagem;
     }
 
-    private  Personagem pesquisarPersonagem(String nome){
+    @Override
+    public Personagem adicionarJutsu(String nome, NovoJutsuDto dto) {
+        Personagem personagem = pesquisarPersonagem(nome);
+
+        switch (getInstancia(personagem)) {
+            case "NINJATAIJUTSU":
+                NinjaTaijutsu taijutsu = (NinjaTaijutsu) personagem;
+                taijutsu.adicionarJutsu(new Jutsu(dto.nome(), dto.dano()));
+                return personagem;
+
+            case "NINJANINJUTSU":
+                NinjaNinjutsu ninjutsu = (NinjaNinjutsu) personagem;
+                ninjutsu.adicionarJutsu(new Jutsu(dto.nome(), dto.dano()));
+                return personagem;
+
+            case "NINJAGENJUTSU":
+                NinjaGenjutsu genjutsu = (NinjaGenjutsu) personagem;
+                genjutsu.adicionarJutsu(new Jutsu(dto.nome(), dto.dano()));
+                return personagem;
+        }
+        throw new PersonagemNaoGuerreiroException(
+                "O personagem " + nome + " não é ninja, não podendo receber um jutso.");
+    }
+
+    @Override
+    public Personagem aumentarChakra(String nome, AumentarChakraDto dto) {
+        Personagem personagem = pesquisarPersonagem(nome);
+
+        switch (getInstancia(personagem)) {
+            case "NINJATAIJUTSU":
+                NinjaTaijutsu taijutsu = (NinjaTaijutsu) personagem;
+                taijutsu.setChakra(dto.quantidadeDeChakra());
+                return personagem;
+
+            case "NINJANINJUTSU":
+                NinjaNinjutsu ninjutsu = (NinjaNinjutsu) personagem;
+                ninjutsu.setChakra(dto.quantidadeDeChakra());
+                return personagem;
+
+            case "NINJAGENJUTSU":
+                NinjaGenjutsu genjutsu = (NinjaGenjutsu) personagem;
+                genjutsu.setChakra(dto.quantidadeDeChakra());
+                return personagem;
+        }
+        throw new PersonagemNaoGuerreiroException(
+                "O personagem " + nome + " não é ninja, não podendo receber Chakras.");
+    }
+
+    @Override
+    public boolean excluir(String nome){
+        Personagem personagem = pesquisarPersonagem(nome);
+        personagensMap.remove(personagem.getNome().toUpperCase());
+        return true;
+    }
+
+    protected Personagem pesquisarPersonagem(String nome) {
         Personagem personagemBuscado = personagensMap.get(nome.toUpperCase());
 
         if (personagemBuscado != null) {
             return personagemBuscado;
         } else {
-            throw new PersonagemNaoCadastradoExcepition("O Personagem "+ nome + " não está cadastrado.");
+            throw new PersonagemNaoCadastradoExcepition("O Personagem " + nome + " não está cadastrado.");
         }
     }
 
-    private boolean personagemExiste(String nome){
-        if (personagensMap.containsKey(nome.toUpperCase())){
-                return true;
+    protected void validaDto(NovoPersonagemDto dto) {
+
+        if (personagensMap.containsKey(dto.nome().toUpperCase())) {
+            throw new PersonagemJaCadastradoException("Personagem já cadastrado.");
         }
-        return false;
+        System.out.println("Valor =" + dto.categoriaNinja());
+
+        if (dto.categoriaNinja() == null) {
+            throw new JutsuInvalidoException("ATENÇÃO!!! Caso personagem não seja ninja," +
+                    " Por favor, enviar a vaiável, categoriaNinja, vazia(\"\") no dto.");
+        }
+        if (CategoriaNijaEnum.contains(dto.categoriaNinja().toUpperCase()) || dto.categoriaNinja().isEmpty()) {
+
+        } else {
+            throw new JutsuInvalidoException("O ninja " + dto.categoriaNinja().toUpperCase()
+                    + " não pertence ao rol cadastrado no sistema");
+        }
     }
 
-    private Personagem criarPersonagem(String categoria){
-        if(categoria == null || categoria == ""){
-            return new Personagem();
+    protected String getInstancia(Personagem personagem) {
+
+        if (personagem instanceof NinjaTaijutsu) {
+            return "NINJATAIJUTSU";
         }
 
-        if(categoria.equalsIgnoreCase("ninjaTaijutsu")){
-            Personagem personagem= new NinjaTaijutsu();
-            personagem.adicionarJutsu(categoria.toUpperCase());
-            return personagem;
+        if (personagem instanceof NinjaNinjutsu) {
+            return "NINJANINJUTSU";
         }
 
-        if(categoria.equalsIgnoreCase("NinjaGenjutsu")){
-            Personagem personagem = new NinjaGenjutsu();
-            personagem.adicionarJutsu(categoria.toUpperCase());
-            return personagem;
+        if (personagem instanceof NinjaGenjutsu) {
+            return "NINJAGENJUTSU";
         }
-
-        if(categoria.equalsIgnoreCase("NinjaNinjutsu")){
-            Personagem personagem = new NinjaNinjutsu();
-            personagem.adicionarJutsu(categoria.toUpperCase());
-            return personagem;
-        }
-
-        throw new JutsuInexistenteExcepition("A categoria de Jutsu '" + categoria
-       + "', não existe. ");
+        return "PERSONAGEM NÃO NINJA";
     }
-
 }

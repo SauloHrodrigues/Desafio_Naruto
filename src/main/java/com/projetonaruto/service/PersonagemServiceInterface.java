@@ -19,4 +19,6 @@ public interface PersonagemServiceInterface {
     public Personagem adicionarJutsu(String nome, NovoJutsuDto dto);
 
     public Personagem aumentarChakra(String nome, AumentarChakraDto dto);
+
+    public boolean excluir(String nome);
 }

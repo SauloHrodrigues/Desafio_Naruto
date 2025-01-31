@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(PersonagemNaoGuerreiroExcepition.class)
-    public ResponseEntity<Object> handlePersonagemNaoGuerreiroExcepition(PersonagemNaoGuerreiroExcepition ex) {
+    @ExceptionHandler(PersonagemNaoGuerreiroException.class)
+    public ResponseEntity<Object> handlePersonagemNaoGuerreiroExcepition(PersonagemNaoGuerreiroException ex) {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST) // ou outro status HTTP adequado
                 .body(new ErrorResponse("Erro", ex.getMessage()));
@@ -20,14 +20,14 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST) // ou outro status HTTP adequado
                 .body(new ErrorResponse("Erro", ex.getMessage()));
     }
-   @ExceptionHandler(JutsuInexistenteExcepition.class)
-    public ResponseEntity<Object> handleJutsuInexistenteExcepition(JutsuInexistenteExcepition ex) {
+   @ExceptionHandler(JutsuInvalidoException.class)
+    public ResponseEntity<Object> handleJutsuInexistenteExcepition(JutsuInvalidoException ex) {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND) // ou outro status HTTP adequado
                 .body(new ErrorResponse("Erro", ex.getMessage()));
     }
-    @ExceptionHandler(PersonagemJaExistenteExcepition.class)
-    public ResponseEntity<Object> handlePersonagemJaExistenteExcepition(PersonagemJaExistenteExcepition ex) {
+    @ExceptionHandler(PersonagemJaCadastradoException.class)
+    public ResponseEntity<Object> handlePersonagemJaExistenteExcepition(PersonagemJaCadastradoException ex) {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND) // ou outro status HTTP adequado
                 .body(new ErrorResponse("Erro", ex.getMessage()));
