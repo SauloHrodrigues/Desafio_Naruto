@@ -48,7 +48,7 @@ public class PersonagensNarutoController {
     }
 
     @PatchMapping("/{nome}/novojutsu")
-    public ResponseEntity<Personagem> dicionarJutsu(@PathVariable String nome, @RequestBody NovoJutsuDto dto) {
+    public ResponseEntity<Personagem> aicionarJutsu(@PathVariable String nome, @RequestBody NovoJutsuDto dto) {
         return ResponseEntity.status(HttpStatus.OK).body(service.adicionarJutsu(nome, dto));
     }
     @PatchMapping("/{nome}/aumentarchakra")

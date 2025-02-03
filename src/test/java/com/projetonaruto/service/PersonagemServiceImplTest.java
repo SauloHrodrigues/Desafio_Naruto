@@ -1,11 +1,10 @@
 package com.projetonaruto.service;
 
 import com.projetonaruto.dto.NovoPersonagemDto;
-import com.projetonaruto.exceptions.JutsuInvalidoException;
 import com.projetonaruto.fixture.DtoFixture;
 import com.projetonaruto.model.NinjaTaijutsu;
 import com.projetonaruto.model.Personagem;
-import com.projetonaruto.service.impl.PersonagemPersonagemServiceImpl;
+import com.projetonaruto.service.impl.PersonagemServiceImpl;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class PersonagemServiceImplTest {
 
     @InjectMocks
-    private PersonagemPersonagemServiceImpl service;
+    private PersonagemServiceImpl service;
     private NovoPersonagemDto personagem01Dto;
     private NovoPersonagemDto personagemTaijutsuDto;
     private NovoPersonagemDto personagemGenjutsuDto;

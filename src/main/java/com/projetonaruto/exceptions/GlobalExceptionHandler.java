@@ -29,7 +29,14 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(PersonagemJaCadastradoException.class)
     public ResponseEntity<Object> handlePersonagemJaExistenteExcepition(PersonagemJaCadastradoException ex) {
         return ResponseEntity
-                .status(HttpStatus.NOT_FOUND) // ou outro status HTTP adequado
+                .status(HttpStatus.CONFLICT) // ou outro status HTTP adequado
+                .body(new ErrorResponse("Erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(ChakrasInsuficientesException.class)
+    public ResponseEntity<Object> handleChakrasInsuficientesException(ChakrasInsuficientesException ex) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST) // ou outro status HTTP adequado
                 .body(new ErrorResponse("Erro", ex.getMessage()));
     }
 

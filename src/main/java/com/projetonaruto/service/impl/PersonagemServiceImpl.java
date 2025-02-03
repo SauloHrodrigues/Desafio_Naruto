@@ -8,6 +8,7 @@ import com.projetonaruto.exceptions.JutsuInvalidoException;
 import com.projetonaruto.exceptions.PersonagemJaCadastradoException;
 import com.projetonaruto.exceptions.PersonagemNaoCadastradoExcepition;
 import com.projetonaruto.exceptions.PersonagemNaoGuerreiroException;
+import com.projetonaruto.interfaces.Ninja;
 import com.projetonaruto.model.Jutsu;
 import com.projetonaruto.model.NinjaGenjutsu;
 import com.projetonaruto.model.NinjaNinjutsu;
@@ -21,7 +22,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class PersonagemPersonagemServiceImpl implements PersonagemServiceInterface {
+public class PersonagemServiceImpl implements PersonagemServiceInterface {
 
     private Map<String, Personagem> personagensMap = new HashMap<>();
     private Map<String, String> mapeamento = new HashMap<>();
@@ -34,7 +35,7 @@ public class PersonagemPersonagemServiceImpl implements PersonagemServiceInterfa
         switch (dto.categoriaNinja().toUpperCase()) {
             case "NINJATAIJUTSU":
 
-                NinjaTaijutsu taijutsu = new NinjaTaijutsu(dto.nome(), dto.idade(), dto.aldeia(),
+                NinjaTaijutsu taijutsu = new NinjaTaijutsu(dto.nome(), dto.idade(), dto.aldeia(), dto.vida(),
                         CategoriaNijaEnum.NINJATAIJUTSU);
                 personagensMap.put(taijutsu.getNome().toUpperCase(), taijutsu);
                 mapeamento.put(taijutsu.getNome(), "NINJATAIJUTSU");
@@ -42,14 +43,14 @@ public class PersonagemPersonagemServiceImpl implements PersonagemServiceInterfa
 
             case "NINJANINJUTSU":
                 NinjaNinjutsu ninjutsu = new NinjaNinjutsu(
-                        dto.nome(), dto.idade(), dto.aldeia(), CategoriaNijaEnum.NINJANINJUTSU);
+                        dto.nome(), dto.idade(), dto.aldeia(), dto.vida(), CategoriaNijaEnum.NINJANINJUTSU);
                 personagensMap.put(ninjutsu.getNome().toUpperCase(), ninjutsu);
                 mapeamento.put(ninjutsu.getNome(), "NINJANINJUTSU");
                 return ninjutsu;
 
             case "NINJAGENJUTSU":
                 NinjaGenjutsu genjutsu = new NinjaGenjutsu(
-                        dto.nome(), dto.idade(), dto.aldeia(), CategoriaNijaEnum.NINJAGENJUTSU);
+                        dto.nome(), dto.idade(), dto.aldeia(), dto.vida(), CategoriaNijaEnum.NINJAGENJUTSU);
                 personagensMap.put(genjutsu.getNome().toUpperCase(), genjutsu);
                 mapeamento.put(genjutsu.getNome(), "NINJAGENJUTSU");
                 return genjutsu;
@@ -117,17 +118,17 @@ public class PersonagemPersonagemServiceImpl implements PersonagemServiceInterfa
         switch (getInstancia(personagem)) {
             case "NINJATAIJUTSU":
                 NinjaTaijutsu taijutsu = (NinjaTaijutsu) personagem;
-                taijutsu.adicionarJutsu(new Jutsu(dto.nome(), dto.dano()));
+                taijutsu.adicionarJutsu(new Jutsu(dto.nome(), dto.dano(), dto.consumoDeChakra()));
                 return personagem;
 
             case "NINJANINJUTSU":
                 NinjaNinjutsu ninjutsu = (NinjaNinjutsu) personagem;
-                ninjutsu.adicionarJutsu(new Jutsu(dto.nome(), dto.dano()));
+                ninjutsu.adicionarJutsu(new Jutsu(dto.nome(), dto.dano(), dto.consumoDeChakra()));
                 return personagem;
 
             case "NINJAGENJUTSU":
                 NinjaGenjutsu genjutsu = (NinjaGenjutsu) personagem;
-                genjutsu.adicionarJutsu(new Jutsu(dto.nome(), dto.dano()));
+                genjutsu.adicionarJutsu(new Jutsu(dto.nome(), dto.dano(), dto.consumoDeChakra()));
                 return personagem;
         }
         throw new PersonagemNaoGuerreiroException(
@@ -192,6 +193,11 @@ public class PersonagemPersonagemServiceImpl implements PersonagemServiceInterfa
             throw new JutsuInvalidoException("O ninja " + dto.categoriaNinja().toUpperCase()
                     + " não pertence ao rol cadastrado no sistema");
         }
+    }
+
+    protected String getInstacia(String nomeDoPersonagem){
+        Personagem personagem= pesquisarPersonagem(nomeDoPersonagem);
+        return getInstancia(personagem);
     }
 
     protected String getInstancia(Personagem personagem) {
