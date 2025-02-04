@@ -5,6 +5,7 @@ import com.projetonaruto.dto.NovoJutsuDto;
 import com.projetonaruto.dto.NovoPersonagemDto;
 import com.projetonaruto.model.Personagem;
 import com.projetonaruto.service.PersonagemServiceInterface;
+import java.util.List;
 import java.util.Map;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,8 @@ public class PersonagensNarutoController {
     }
 
     @GetMapping()
-    public ResponseEntity<Map<String, Personagem>> buscar() {
-        return ResponseEntity.status(HttpStatus.OK).body((Map<String, Personagem>) service.buscar());
+    public ResponseEntity<List<Map<String, ?>>>buscar() {
+        return ResponseEntity.status(HttpStatus.OK).body(service.buscar());
     }
     @GetMapping("/{nome}/usarjutsu")
     public ResponseEntity<String> usarJutsu(@PathVariable String nome) {

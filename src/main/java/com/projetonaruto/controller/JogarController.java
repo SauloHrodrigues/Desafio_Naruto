@@ -18,21 +18,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/jogar")
 public class JogarController {
 
-    @Autowired
-    private IJogarService service;
-    @PostMapping("/{ninja}/{oponente}/novojogo")
-    public ResponseEntity<String> novoJogo(@RequestParam String ninja, @RequestParam String oponente){
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.novoJogo(ninja,oponente));
-    }
-
-    @GetMapping("/{ninja}/{oponente}/{nomeDoJutsu}/usarjutsu")
-    public ResponseEntity<String> usarJutsu(@RequestParam String ninja, @RequestParam String oponente, @RequestParam String nomeDoJutsu) {
-        return ResponseEntity.status(HttpStatus.OK).body(service.usarJutsu(ninja, oponente, nomeDoJutsu));
-    }
-
-    @GetMapping("/{nome}/desviar")
-    public ResponseEntity<String> desviar(@PathVariable String nome) {
-        return ResponseEntity.status(HttpStatus.OK).body("teste");
+//    @Autowired
+//    private IJogarService service;
+//    @PostMapping("/{ninja}/{oponente}/novojogo")
+//    public ResponseEntity<String> novoJogo(@RequestParam String ninja, @RequestParam String oponente){
+//        return ResponseEntity.status(HttpStatus.CREATED).body(service.novoJogo(ninja,oponente));
+//    }
+//
+//    @GetMapping("/{ninja}/{oponente}/{nomeDoJutsu}/usarjutsu")
+//    public ResponseEntity<String> usarJutsu(@RequestParam String ninja, @RequestParam String oponente, @RequestParam String nomeDoJutsu) {
+//        return ResponseEntity.status(HttpStatus.OK).body(service.usarJutsu(ninja, oponente, nomeDoJutsu));
+//    }
+//
+//    @GetMapping("/{nome}/desviar")
+//    public ResponseEntity<String> desviar(@PathVariable String nome) {
+//        return ResponseEntity.status(HttpStatus.OK).body("teste");
 //    }
 
 }

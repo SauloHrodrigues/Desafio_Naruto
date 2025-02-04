@@ -4,13 +4,14 @@ import com.projetonaruto.dto.AumentarChakraDto;
 import com.projetonaruto.dto.NovoJutsuDto;
 import com.projetonaruto.dto.NovoPersonagemDto;
 import com.projetonaruto.model.Personagem;
+import java.util.List;
 import java.util.Map;
 
 public interface PersonagemServiceInterface {
 
     public Personagem novoPersonagem(NovoPersonagemDto novoPersonagem);
 
-    public Map<String, Personagem> buscar();
+    public List<Map<String, ?>> buscar();
 
     public String usarJutsu(String nomeDoPersonagem);
 
