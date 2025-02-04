@@ -17,25 +17,15 @@ public class PersonagensNinjas extends Personagem implements Ninja{
     }
 
     @Override
-    public void usarJutsu(String nomeJutsu, Personagem inimigo) {
-        Jutsu jutsu = getJutsus().get(nomeJutsu);
-        if (jutsu == null) {
-            System.out.println(getNome() + " tentou usar " + nomeJutsu + "," +
-                    " mas ele não conhece esse jutsu!");
-            return;
-        }
+    public void usarJutsu(Jutsu jutsu, PersonagensNinjas inimigo) {
 
-
-        if (getChakra() < jutsu.getConsumoDeChakra()) {
+         if (getChakra() < jutsu.getConsumoDeChakra()) {
             throw new ChakrasInsuficientesException("Não há chakra suficientes para usar o" +
-                    " jutsu "+ nomeJutsu);
+                    " jutsu "+ jutsu.getNome());
         }
 
-        // Reduz o chakra e causa dano
         setChakra(getChakra() - jutsu.getConsumoDeChakra());
-        System.out.println(getNome() + " usa o jutsu " + nomeJutsu + " causando " +
-                jutsu.getDano() + " de dano!");
-//        inimigo.desviar(jutsu.getDano());
+         inimigo.desviar(jutsu.getDano());
     }
 
     @Override
@@ -44,21 +34,20 @@ public class PersonagensNinjas extends Personagem implements Ninja{
     }
 
     @Override
-    public void desviar(int danoRecebido) {
+    public String desviar(int danoRecebido) {
         Random random = new Random();
         boolean desviou = random.nextBoolean();
 
         if (desviou) {
-            desviar();
+            return desviar();
         } else {
             setVida(getVida() - danoRecebido);
-            System.out.println(getNome() + " não conseguiu desviar e perdeu " + danoRecebido + " de vida!");
+            return getNome() + " não conseguiu desviar e perdeu " + danoRecebido + " de vida!";
         }
     }
 
-    @Override
-    public void adicionarJutsu(Jutsu jutsu) {
-
+     public void adicionarJutsu(Jutsu jutsu) {
+        jutsus.put(jutsu.getNome(),jutsu);
     }
 
     public Map<String, Jutsu> getMapJutsus() {
@@ -92,5 +81,12 @@ public class PersonagensNinjas extends Personagem implements Ninja{
 
     public void setVida(int vida){
         this.vida = vida;
+    }
+
+    @Override
+    public String toString() {
+        return "PersonagensNinjas{" +
+                "chakra=" + chakra +
+                "} " ;
     }
 }

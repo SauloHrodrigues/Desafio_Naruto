@@ -2,7 +2,8 @@ package com.projetonaruto.service;
 
 public interface IJogarService {
 
-//    public String novoJogo(String ninja, String oponente);
-//
-//    public String usarJutsu(String ninja, String oponente, String nomeDoJutsu);
+    public String novoJogo(String ninja, String oponente);
+
+    public String usarJutsu(String nomeDoNinja,String nomeDoJutsu);
+    public String desviar(String ninja);
 }

@@ -28,4 +28,8 @@ public class NinjaNinjutsu extends PersonagensNinjas{
         return "O personagem está desviando de um ataque usando sua habilidade em NinjaNinjutsu.";
     }
 
+    @Override
+    public String toString() {
+        return "NinjaNinjutsu{} ";
+    }
 }

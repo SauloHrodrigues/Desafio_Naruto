@@ -7,7 +7,7 @@ import com.projetonaruto.enuns.CategoriaNijaEnum;
 import com.projetonaruto.exceptions.JutsuInvalidoException;
 import com.projetonaruto.exceptions.PersonagemJaCadastradoException;
 import com.projetonaruto.exceptions.PersonagemNaoCadastradoExcepition;
-import com.projetonaruto.exceptions.PersonagemNaoGuerreiroException;
+import com.projetonaruto.exceptions.PersonagemNaoNinjaException;
 import com.projetonaruto.model.Jutsu;
 import com.projetonaruto.model.NinjaGenjutsu;
 import com.projetonaruto.model.NinjaNinjutsu;
@@ -45,6 +45,7 @@ public class PersonagemServiceImpl implements PersonagemServiceInterface {
                 PersonagensNinjas ninjutsu = new NinjaNinjutsu(
                         dto.nome(), dto.idade(), dto.aldeia(), dto.vida(), CategoriaNijaEnum.NINJANINJUTSU);
                 ninjaMap.put(ninjutsu.getNome().toUpperCase(),ninjutsu);
+                System.out.println("Vida de ninjutsu = "+ninjutsu.getVida());
                 return ninjutsu;
 
             case "NINJAGENJUTSU":
@@ -78,7 +79,7 @@ public class PersonagemServiceImpl implements PersonagemServiceInterface {
             return ninja.usarJutsu();
         }
 
-        throw new PersonagemNaoGuerreiroException(
+        throw new PersonagemNaoNinjaException(
                 "O personagem " + nomeDoPersonagem + " não consta como ninja no sistem. " +
                         "Assim, não poder ser-lhe adicionado um Jutsu!");
 
@@ -92,7 +93,7 @@ public class PersonagemServiceImpl implements PersonagemServiceInterface {
             PersonagensNinjas ninja = (PersonagensNinjas) personagem;
             return ninja.desviar();
         }
-        throw new PersonagemNaoGuerreiroException(
+        throw new PersonagemNaoNinjaException(
                 "O personagem " + nomeDoPersonagem + " não é ninja, não podendo usar a função desviar.");
     }
 
@@ -106,7 +107,7 @@ public class PersonagemServiceImpl implements PersonagemServiceInterface {
             return ninja;
         } else
 
-        throw new PersonagemNaoGuerreiroException(
+        throw new PersonagemNaoNinjaException(
                 "O personagem " + nome + " não consta como ninja no sistem. " +
                         "Assim, não podendo receber um jutso.");
     }
@@ -121,7 +122,7 @@ public class PersonagemServiceImpl implements PersonagemServiceInterface {
             return ninja;
         }
 
-        throw new PersonagemNaoGuerreiroException(
+        throw new PersonagemNaoNinjaException(
                 "O personagem " + nome + " não consta como ninja no sistem. " +
                         "Assim, não pode receber Chakras.");
     }
@@ -133,6 +134,19 @@ public class PersonagemServiceImpl implements PersonagemServiceInterface {
         return true;
     }
 
+    protected PersonagensNinjas pesquisarNinjas(String nome){
+        Personagem personagemBuscado = personagensMap.get(nome.toUpperCase());
+        PersonagensNinjas ninja = ninjaMap.get(nome.toUpperCase());
+
+        if(ninja != null){
+            return ninja;
+        } else if (personagemBuscado != null) {
+            throw new PersonagemNaoNinjaException("O personagem "+
+                    nome.toUpperCase() + " não é ninja. Assim, não tem permissão para lutar.");
+        }
+        throw new PersonagemNaoCadastradoExcepition("O Personagem " + nome + " não está cadastrado no sistema.");
+    }
+
     protected Personagem pesquisarPersonagem(String nome) {
         Personagem personagemBuscado = personagensMap.get(nome.toUpperCase());
         PersonagensNinjas ninja = ninjaMap.get(nome.toUpperCase());
@@ -142,7 +156,7 @@ public class PersonagemServiceImpl implements PersonagemServiceInterface {
         } else if(ninja != null) {
             return ninja;
         }else{
-            throw new PersonagemNaoCadastradoExcepition("O Personagem " + nome + " não está cadastrado.");
+            throw new PersonagemNaoCadastradoExcepition("O Personagem " + nome + " não está cadastrado no sistema.");
         }
     }
 

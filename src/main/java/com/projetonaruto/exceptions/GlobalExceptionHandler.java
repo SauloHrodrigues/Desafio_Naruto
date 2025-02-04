@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(PersonagemNaoGuerreiroException.class)
-    public ResponseEntity<Object> handlePersonagemNaoGuerreiroExcepition(PersonagemNaoGuerreiroException ex) {
+    @ExceptionHandler(PersonagemNaoNinjaException.class)
+    public ResponseEntity<Object> handlePersonagemNaoGuerreiroExcepition(PersonagemNaoNinjaException ex) {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST) // ou outro status HTTP adequado
                 .body(new ErrorResponse("Erro", ex.getMessage()));
