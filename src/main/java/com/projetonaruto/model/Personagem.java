@@ -14,15 +14,11 @@ public class Personagem  {
     protected int vida;
     private CategoriaNijaEnum ninja;
 
-    public Personagem(){
-
-    }
-
     public Personagem(String nome, int idade, String aldeia) {
-        this.nome = nome;
         this.idade = idade;
         this.aldeia = aldeia;
         this.vida = 1;
+        this.nome = nome;
     }
 
     public Personagem(String nomeNinja, int idade, String aldeia, int vida, CategoriaNijaEnum ninja) {
@@ -34,7 +30,6 @@ public class Personagem  {
         this.ninja = ninja;
         this.vida = vida;
     }
-
     public String getNome() {
         return nome;
     }
@@ -46,7 +41,6 @@ public class Personagem  {
     public String getAldeia() {
         return aldeia;
     }
-
 
     public void setNome(String nome) {
         this.nome = nome;
@@ -60,23 +54,12 @@ public class Personagem  {
         this.aldeia = aldeia;
     }
 
-    public CategoriaNijaEnum getNinja() {
-        return ninja;
-    }
-
-    protected void adicionarJutso(Jutsu jutsu){
-        jutsus.put(jutsu.getNome(), jutsu);
-    }
-
     @Override
     public String toString() {
         return "Personagem{" +
                 "nome= " + nome +
                 ", idade= " + idade +
                 ", aldeia= " + aldeia +
-                " chakra= " + chakra +
-                ", jutsus= " + jutsus +
-                ", vida = " + vida +
         '}';
     }
 }

@@ -8,9 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -20,19 +18,20 @@ public class JogarController {
 
     @Autowired
     private IJogarService service;
+
     @PostMapping("/{ninja}/{oponente}/novojogo")
-    public ResponseEntity<String> novoJogo(@PathVariable String ninja, @PathVariable String oponente){
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.novoJogo(ninja,oponente));
+    public ResponseEntity<String> novoJogo(@PathVariable String ninja, @PathVariable String oponente) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.novoJogo(ninja, oponente));
     }
 
     @GetMapping("/{nomeDoNinja}/{nomeDoJutsu}/usarjutsu")
-    public ResponseEntity<String> usarJutsu(@PathVariable String nomeDoNinja, @PathVariable String nomeDoJutsu) {
+    public ResponseEntity<String> usarJutsu(@PathVariable(required = false) String nomeDoNinja, @PathVariable String nomeDoJutsu) {
         return ResponseEntity.status(HttpStatus.OK).body(service.usarJutsu(nomeDoNinja, nomeDoJutsu));
     }
 
-    @GetMapping("/{nomeDoNinja}/desviar")
-    public ResponseEntity<String> desviar(@PathVariable String nomeDoNinja) {
-        return ResponseEntity.status(HttpStatus.OK).body(service.desviar(nomeDoNinja));
+    @GetMapping("/desviar")
+    public ResponseEntity<String> desviar() {
+        return ResponseEntity.status(HttpStatus.OK).body(service.desviar());
     }
 
 }

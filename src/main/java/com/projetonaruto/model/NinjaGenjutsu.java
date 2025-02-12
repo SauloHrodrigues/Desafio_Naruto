@@ -6,8 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class NinjaGenjutsu extends PersonagensNinjas {
-
+public class NinjaGenjutsu extends PersonagemNinja {
 
     public NinjaGenjutsu(String nomeNinja, int idade, String aldeia, int vida, CategoriaNijaEnum ninja) {
         super(nomeNinja, idade, aldeia, vida, ninja);
@@ -18,10 +17,8 @@ public class NinjaGenjutsu extends PersonagensNinjas {
         return "O personagem está usando um jutsu de NinjaGenjutsu.";
     }
 
-
     @Override
     public String desviar() {
-        return "o personagem está desviando de um ataque usando sua habilidade em NinjaGenjutsu";
+        return "O personagem está desviando de um ataque usando sua habilidade em NinjaGenjutsu.";
     }
-
 }

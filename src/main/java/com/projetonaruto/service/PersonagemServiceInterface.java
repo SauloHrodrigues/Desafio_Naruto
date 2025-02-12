@@ -5,13 +5,12 @@ import com.projetonaruto.dto.NovoJutsuDto;
 import com.projetonaruto.dto.NovoPersonagemDto;
 import com.projetonaruto.model.Personagem;
 import java.util.List;
-import java.util.Map;
 
 public interface PersonagemServiceInterface {
 
     public Personagem novoPersonagem(NovoPersonagemDto novoPersonagem);
 
-    public List<Map<String, ?>> buscar();
+    public List<Personagem> buscar();
 
     public String usarJutsu(String nomeDoPersonagem);
 
