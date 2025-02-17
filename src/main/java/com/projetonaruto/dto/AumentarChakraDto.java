@@ -1,6 +1,3 @@
 package com.projetonaruto.dto;
 
-public record AumentarChakraDto(
-        int quantidadeDeChakra
-) {
-}
+public record AumentarChakraDto(int quantidadeDeChakra) {}
