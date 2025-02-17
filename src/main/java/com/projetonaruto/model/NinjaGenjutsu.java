@@ -4,8 +4,7 @@ import com.projetonaruto.enuns.CategoriaNijaEnum;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+
 public class NinjaGenjutsu extends PersonagemNinja {
 
     public NinjaGenjutsu(String nomeNinja, int idade, String aldeia, int vida, CategoriaNijaEnum ninja) {

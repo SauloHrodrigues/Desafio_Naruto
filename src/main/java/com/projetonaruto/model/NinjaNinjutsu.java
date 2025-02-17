@@ -1,11 +1,7 @@
 package com.projetonaruto.model;
 
 import com.projetonaruto.enuns.CategoriaNijaEnum;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
 public class NinjaNinjutsu extends PersonagemNinja {
 
     public NinjaNinjutsu(String nomeNinja, int idade, String aldeia, int vida, CategoriaNijaEnum ninja) {
