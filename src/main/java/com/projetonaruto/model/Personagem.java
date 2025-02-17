@@ -46,13 +46,6 @@ public class Personagem  {
         this.nome = nome;
     }
 
-    public void setIdade(int idade) {
-        this.idade = idade;
-    }
-
-    public void setAldeia(String aldeia) {
-        this.aldeia = aldeia;
-    }
 
     @Override
     public String toString() {
