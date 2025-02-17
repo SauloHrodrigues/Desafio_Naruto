@@ -1,18 +1,12 @@
 package com.projetonaruto.service;
 
-import com.projetonaruto.enuns.CategoriaNijaEnum;
 import com.projetonaruto.fixture.JutsuFixture;
-import com.projetonaruto.fixture.PersonagemDtoFixture;
 import com.projetonaruto.fixture.PersonagemFixture;
 import com.projetonaruto.model.JogoSessao;
 import com.projetonaruto.model.Jutsu;
-import com.projetonaruto.model.NinjaNinjutsu;
-import com.projetonaruto.model.NinjaTaijutsu;
-import com.projetonaruto.model.Personagem;
 import com.projetonaruto.model.PersonagemNinja;
 import com.projetonaruto.service.impl.JogarServiceImpl;
 import com.projetonaruto.service.impl.PersonagemServiceImpl;
-import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,8 +16,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
 class JogarServiceImplTest {
