@@ -6,9 +6,10 @@ public class Jutsu {
     private int dano;
     private int consumoDeChakra;
 
-    public Jutsu(String nome, int dano) {
+    public Jutsu(String nome, int dano, int consumoDeChakra) {
         this.nome = nome;
         this.dano = dano;
+        this.consumoDeChakra = consumoDeChakra;
     }
 
     public String getNome() {

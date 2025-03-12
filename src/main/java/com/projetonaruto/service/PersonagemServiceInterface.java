@@ -4,13 +4,13 @@ import com.projetonaruto.dto.AumentarChakraDto;
 import com.projetonaruto.dto.NovoJutsuDto;
 import com.projetonaruto.dto.NovoPersonagemDto;
 import com.projetonaruto.model.Personagem;
-import java.util.Map;
+import java.util.List;
 
 public interface PersonagemServiceInterface {
 
     public Personagem novoPersonagem(NovoPersonagemDto novoPersonagem);
 
-    public Map<String, Personagem> buscar();
+    public List<Personagem> buscar();
 
     public String usarJutsu(String nomeDoPersonagem);
 
@@ -19,4 +19,6 @@ public interface PersonagemServiceInterface {
     public Personagem adicionarJutsu(String nome, NovoJutsuDto dto);
 
     public Personagem aumentarChakra(String nome, AumentarChakraDto dto);
+
+    public boolean excluir(String nome);
 }

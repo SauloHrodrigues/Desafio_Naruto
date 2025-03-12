@@ -1,5 +1,6 @@
 package com.projetonaruto.model;
 
+import com.projetonaruto.enuns.CategoriaNijaEnum;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,23 +11,25 @@ public class Personagem  {
     private String aldeia;
     protected Map<String, Jutsu> jutsus;
     protected int chakra;
-    private boolean ninja = false;
+    protected int vida;
+    private CategoriaNijaEnum ninja;
 
     public Personagem(String nome, int idade, String aldeia) {
-        this.nome = nome;
         this.idade = idade;
         this.aldeia = aldeia;
+        this.vida = 1;
+        this.nome = nome;
     }
 
-    public Personagem(String nomeNinja, int idade, String aldeia, boolean ninja) {
+    public Personagem(String nomeNinja, int idade, String aldeia, int vida, CategoriaNijaEnum ninja) {
         this.nome = nomeNinja;
         this.idade = idade;
         this.aldeia = aldeia;
         this.jutsus = new HashMap<>();
         this.chakra = 100;
         this.ninja = ninja;
+        this.vida = vida;
     }
-
     public String getNome() {
         return nome;
     }
@@ -39,21 +42,10 @@ public class Personagem  {
         return aldeia;
     }
 
-    public boolean isNinja() {
-        return ninja;
-    }
-
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public void setIdade(int idade) {
-        this.idade = idade;
-    }
-
-    public void setAldeia(String aldeia) {
-        this.aldeia = aldeia;
-    }
 
     @Override
     public String toString() {
@@ -61,8 +53,6 @@ public class Personagem  {
                 "nome= " + nome +
                 ", idade= " + idade +
                 ", aldeia= " + aldeia +
-                " chakra= " + chakra +
-                ", jutsus=" + jutsus +
         '}';
     }
 }

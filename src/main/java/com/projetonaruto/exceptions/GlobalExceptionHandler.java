@@ -8,32 +8,69 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(PersonagemNaoGuerreiroExcepition.class)
-    public ResponseEntity<Object> handlePersonagemNaoGuerreiroExcepition(PersonagemNaoGuerreiroExcepition ex) {
+    @ExceptionHandler(PersonagemNaoENinjaException.class)
+    public ResponseEntity<Object> handlePersonagemNaoGuerreiroExcepition(PersonagemNaoENinjaException ex) {
         return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST) // ou outro status HTTP adequado
-                .body(new ErrorResponse("Erro", ex.getMessage()));
-    }
-    @ExceptionHandler(PersonagemNaoCadastradoExcepition.class)
-    public ResponseEntity<Object> handlePersonagemNaoExisteExcepition(PersonagemNaoCadastradoExcepition ex) {
-        return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST) // ou outro status HTTP adequado
-                .body(new ErrorResponse("Erro", ex.getMessage()));
-    }
-   @ExceptionHandler(JutsuInexistenteExcepition.class)
-    public ResponseEntity<Object> handleJutsuInexistenteExcepition(JutsuInexistenteExcepition ex) {
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND) // ou outro status HTTP adequado
-                .body(new ErrorResponse("Erro", ex.getMessage()));
-    }
-    @ExceptionHandler(PersonagemJaExistenteExcepition.class)
-    public ResponseEntity<Object> handlePersonagemJaExistenteExcepition(PersonagemJaExistenteExcepition ex) {
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND) // ou outro status HTTP adequado
+                .status(HttpStatus.BAD_REQUEST)
                 .body(new ErrorResponse("Erro", ex.getMessage()));
     }
 
-    // Classe para representar a resposta do erro
+    @ExceptionHandler(PersonagemNaoCadastradoExcepition.class)
+    public ResponseEntity<Object> handlePersonagemNaoExisteExcepition(PersonagemNaoCadastradoExcepition ex) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorResponse("Erro", ex.getMessage()));
+    }
+
+   @ExceptionHandler(JutsuInvalidoException.class)
+    public ResponseEntity<Object> handleJutsuInexistenteExcepition(JutsuInvalidoException ex) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorResponse("Erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(JogadorEmAtaqueException.class)
+    public ResponseEntity<Object> handleJogadorEmAtaqueException(JogadorEmAtaqueException ex) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorResponse("Erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(JogoInvalidoException.class)
+    public ResponseEntity<Object> handleJogoInvalidoException(JogoInvalidoException ex) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorResponse("Erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(PersonagemJaCadastradoException.class)
+    public ResponseEntity<Object> handlePersonagemJaExistenteExcepition(PersonagemJaCadastradoException ex) {
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(new ErrorResponse("Erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(PersonagemNaoEstaJogandoExcepition.class)
+    public ResponseEntity<Object> handlePersonagemNaoEstaJogandoExcepition(PersonagemNaoEstaJogandoExcepition ex) {
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(new ErrorResponse("Erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(JogadorForaDaVezException.class)
+    public ResponseEntity<Object> handleJogadorInvalidoException(JogadorForaDaVezException ex) {
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(new ErrorResponse("Erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(ChakrasInsuficientesException.class)
+    public ResponseEntity<Object> handleChakrasInsuficientesException(ChakrasInsuficientesException ex) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorResponse("Erro", ex.getMessage()));
+    }
+
     static class ErrorResponse {
         private String tipoErro;
         private String mensagem;
